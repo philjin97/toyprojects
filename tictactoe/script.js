@@ -1,35 +1,22 @@
 const Game = () => {
     // Saving game board data.
     let gameBoard = ['none','none','none','none','none','none','none','none', 'none']
-    let winCombination = ['036','147','258','012','345','678','048','246']
+    let winCombination = [[0,3,6],[1,4,7],[2,5,8],[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6]]
 
     // To save the value of the clicked button instead of calling a new function. 
     let current
 
+    // To switch between player 1 and player 2. 
     let a = 0
 
-    // Storing values for player1. 
-    const player1 = (() => {
-        const turn = () => {
-            const narration = document.querySelector('.narration')
-            narration.textContent = "It is Player 1's turn"
-        }
-
-    })()
-
-    // Storing values for player2. 
-    const player2 = (() => {
-        const turn = () => {
-            const narration = document.querySelector('.narration')
-            narration.textContent = "It is Player 2's turn"
-        }
-
-    })()
+    // To record the current choices of player 1 and player 2. 
+    
+    
     
     // Initially setting up the game board using the game board data. 
     const set_gameBoard = () => {
         const screen = document.querySelector('.screen')
-        console.log(gameBoard[current])
+
         for (i=0; i<gameBoard.length; i++){
             if (gameBoard[i] == 'none'){
                 const div = document.createElement('div')
@@ -39,7 +26,7 @@ const Game = () => {
                 button.addEventListener('click', (event) => {
                     current = event.target.attributes.id.value
                     console.log(current)
-                    game.gamePlay()
+                    checkGame.gamePlay()
                 })
                 button.setAttribute('id', `${i}`)
                 div.appendChild(button)
@@ -53,6 +40,7 @@ const Game = () => {
                 button.addEventListener('click', (event) => {
                     current = event.target.attributes.id.value
                     console.log(current)
+                    checkGame.gamePlay()
                 })
                 button.setAttribute('id', `${i}`)
                 div.appendChild(button)
@@ -66,6 +54,7 @@ const Game = () => {
                 button.addEventListener('click', (event) => {
                     current = event.target.attributes.id.value
                     console.log(current)
+                    checkGame.gamePlay()
                 })
                 button.setAttribute('id', `${i}`)
                 div.appendChild(button)
@@ -75,46 +64,57 @@ const Game = () => {
         
     }
 
-
+    
     // Running logic for game play. 
     const gamePlay = () => {
-        
 
+        let player1 = []
+        let player2 = []
+        
         if (typeof current == 'string'){
-        if (a == 0){
+            if (a == 0){
             const narration = document.querySelector('.narration')
             narration.textContent = "It is Player 2's turn"
             gameBoard.splice(current, 1, 'x')
             let changeButton = document.getElementById(`${current}`)
-            console.log(changeButton)
             changeButton.textContent = 'X'
             changeButton.classList.remove('empty_button', 'circle_button')
             changeButton.classList.add('cross_button')
             console.log(gameBoard)
             a = 1
             
-            let player1 = ''
-            let player2 = ''
+            
+
             for (i=0; i<gameBoard.length; i++){
                     if (gameBoard[i] == 'x'){
-                    player1 += i
+                        player1.push(i)
                     } else if (gameBoard[i] == 'o'){
-                    player2 += i}
+                        player2.push(i)}
             } 
+
+            
+
+            let win = 0
             for (i=0; i<winCombination.length; i++){
-                if (player1 == winCombination[i]){
+                
+                for (x=0; x<player1.length; x++){
+                    if (winCombination[i].includes(player1[x])){
+                        
+                        win += 1
+                        
+                        
+                    } else {win += 0}
+                }
+                
+                if (win == 3){
                     const narration = document.querySelector('.narration')
                     narration.textContent = "Player 1 Wins!"
-                    const resetButton = document.createElement('button')
-                    
-                } else if (player2 == winCombination[i]){
-                    const narration = document.querySelector('.narration')
-                    narration.textContent = "Player 2 Wins!"
-                } 
-            }
-            
-            
-        } else if (a == 1){
+                    break
+                } else {
+                win = 0}
+            }   
+
+            } else if (a == 1){
             const narration = document.querySelector('.narration')
             narration.textContent = "It is Player 1's turn"
             console.log(current)
@@ -125,34 +125,45 @@ const Game = () => {
             changeButton.classList.add('circle_button')
             a = 0
 
-            let player1 = ''
-            let player2 = ''
             for (i=0; i<gameBoard.length; i++){
                     if (gameBoard[i] == 'x'){
-                    player1 += i
+                        player1.push(i)
                     } else if (gameBoard[i] == 'o'){
-                    player2 += i}
+                        player2.push(i)}
             } 
+
+            
+
+            let win = 0
             for (i=0; i<winCombination.length; i++){
-                if (player1 == winCombination[i]){
-                    const narration = document.querySelector('.narration')
-                    narration.textContent = "Player 1 Wins!"
-                } else if (player2 == winCombination[i]){
+                for (x=0; x<player2.length; x++){
+                    if (winCombination[i].includes(player2[x])){
+                        win += 1
+                        
+                    }
+                }
+                console.log(win)
+                if (win == 3){
                     const narration = document.querySelector('.narration')
                     narration.textContent = "Player 2 Wins!"
-                } 
+                    break
+                } else {
+                win = 0}
             }
-    
+            }
         }
-    }}
+    }
 
     // Returning for a factory function. 
     return {
-        player1, player2, set_gameBoard, gamePlay
+        set_gameBoard, 
+        gamePlay
     }
 
+    
 }
 
-const game = Game();
-game.set_gameBoard();
-game.gamePlay();
+const checkGame = Game();
+checkGame.set_gameBoard();
+checkGame.gamePlay();
+
