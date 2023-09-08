@@ -1,6 +1,7 @@
 const Game = () => {
     // Saving game board data.
     let gameBoard = ['none','none','none','none','none','none','none','none', 'none']
+    let winCombination = ['036','147','258','012','345','678','048','246']
 
     // To save the value of the clicked button instead of calling a new function. 
     let current
@@ -91,7 +92,27 @@ const Game = () => {
             changeButton.classList.add('cross_button')
             console.log(gameBoard)
             a = 1
-            console.log(a)
+            
+            let player1 = ''
+            let player2 = ''
+            for (i=0; i<gameBoard.length; i++){
+                    if (gameBoard[i] == 'x'){
+                    player1 += i
+                    } else if (gameBoard[i] == 'o'){
+                    player2 += i}
+            } 
+            for (i=0; i<winCombination.length; i++){
+                if (player1 == winCombination[i]){
+                    const narration = document.querySelector('.narration')
+                    narration.textContent = "Player 1 Wins!"
+                    const resetButton = document.createElement('button')
+                    
+                } else if (player2 == winCombination[i]){
+                    const narration = document.querySelector('.narration')
+                    narration.textContent = "Player 2 Wins!"
+                } 
+            }
+            
             
         } else if (a == 1){
             const narration = document.querySelector('.narration')
@@ -103,6 +124,24 @@ const Game = () => {
             changeButton.classList.remove('empty_button', 'cross_button')
             changeButton.classList.add('circle_button')
             a = 0
+
+            let player1 = ''
+            let player2 = ''
+            for (i=0; i<gameBoard.length; i++){
+                    if (gameBoard[i] == 'x'){
+                    player1 += i
+                    } else if (gameBoard[i] == 'o'){
+                    player2 += i}
+            } 
+            for (i=0; i<winCombination.length; i++){
+                if (player1 == winCombination[i]){
+                    const narration = document.querySelector('.narration')
+                    narration.textContent = "Player 1 Wins!"
+                } else if (player2 == winCombination[i]){
+                    const narration = document.querySelector('.narration')
+                    narration.textContent = "Player 2 Wins!"
+                } 
+            }
     
         }
     }}
