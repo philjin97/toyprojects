@@ -26,6 +26,7 @@ button {
 .circle_button {
     color: blue;
     font-size: 60px;
+    font-weight: bold;
 }
 
 .cross_button {

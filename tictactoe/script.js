@@ -1,9 +1,11 @@
 const Game = () => {
     // Saving game board data.
-    let gameBoard = ['x','none','none','none','none','none','none','none', 'none']
+    let gameBoard = ['none','none','none','none','none','none','none','none', 'none']
 
     // To save the value of the clicked button instead of calling a new function. 
     let current
+
+    let a = 0
 
     // Storing values for player1. 
     const player1 = (() => {
@@ -26,7 +28,7 @@ const Game = () => {
     // Initially setting up the game board using the game board data. 
     const set_gameBoard = () => {
         const screen = document.querySelector('.screen')
-        console.log(gameBoard[0])
+        console.log(gameBoard[current])
         for (i=0; i<gameBoard.length; i++){
             if (gameBoard[i] == 'none'){
                 const div = document.createElement('div')
@@ -36,8 +38,7 @@ const Game = () => {
                 button.addEventListener('click', (event) => {
                     current = event.target.attributes.id.value
                     console.log(current)
-                    game.gamePlay(0)
-                    game.gamePlay(1)
+                    game.gamePlay()
                 })
                 button.setAttribute('id', `${i}`)
                 div.appendChild(button)
@@ -75,33 +76,35 @@ const Game = () => {
 
 
     // Running logic for game play. 
-    const gamePlay = (turn) => {
-
-        if (current != 'none'){
-            if (turn == 0){
-                const narration = document.querySelector('.narration')
-                narration.textContent = "It is Player 1's turn"
-                console.log(current)
-                gameBoard.splice(current, 1, 'x')
-                let changeButton = document.getElementById(`${current}`)
-                changeButton.textContent = 'X'
-                changeButton.classList.remove('empty_button', 'circle_button')
-                changeButton.classList.add('cross_button')
-                console.log(gameBoard)
-                current = 'none'
-                
-            } else if (turn == 1){
-                const narration = document.querySelector('.narration')
-                narration.textContent = "It is Player 2's turn"
-                console.log(current)
-                gameBoard.splice(current, 1, 'o')
-                let changeButton = document.getElementById(`${current}`)
-                changeButton.textContent = 'O'
-                changeButton.classList.remove('empty_button', 'circle_button')
-                changeButton.classList.add('cross_button')
-                current = 'none'
+    const gamePlay = () => {
         
-            }
+
+        if (typeof current == 'string'){
+        if (a == 0){
+            const narration = document.querySelector('.narration')
+            narration.textContent = "It is Player 2's turn"
+            gameBoard.splice(current, 1, 'x')
+            let changeButton = document.getElementById(`${current}`)
+            console.log(changeButton)
+            changeButton.textContent = 'X'
+            changeButton.classList.remove('empty_button', 'circle_button')
+            changeButton.classList.add('cross_button')
+            console.log(gameBoard)
+            a = 1
+            console.log(a)
+            
+        } else if (a == 1){
+            const narration = document.querySelector('.narration')
+            narration.textContent = "It is Player 1's turn"
+            console.log(current)
+            gameBoard.splice(current, 1, 'o')
+            let changeButton = document.getElementById(`${current}`)
+            changeButton.textContent = 'O'
+            changeButton.classList.remove('empty_button', 'cross_button')
+            changeButton.classList.add('circle_button')
+            a = 0
+    
+        }
     }}
 
     // Returning for a factory function. 
