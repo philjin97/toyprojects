@@ -2,6 +2,7 @@ const Game = () => {
     // Saving game board data.
     let gameBoard = ['none','none','none','none','none','none','none','none', 'none']
     let winCombination = [[0,3,6],[1,4,7],[2,5,8],[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6]]
+    let css_winCombination 
 
     // To save the value of the clicked button instead of calling a new function. 
     let current
@@ -93,6 +94,8 @@ const Game = () => {
             } 
 
             
+            // includes() vs in. Includes() checks for the existence of a value in an array, 
+            // while the in operator checks for the existence of a key in an object. 
 
             let win = 0
             for (i=0; i<winCombination.length; i++){
@@ -107,6 +110,8 @@ const Game = () => {
                 }
                 
                 if (win == 3){
+                    css_winCombination = winCombination[i]
+                    checkGame.addWinAnimation()
                     const narration = document.querySelector('.narration')
                     narration.textContent = "Player 1 Wins!"
                     break
@@ -144,6 +149,8 @@ const Game = () => {
                 }
                 console.log(win)
                 if (win == 3){
+                    css_winCombination = winCombination[i]
+                    checkGame.addWinAnimation()
                     const narration = document.querySelector('.narration')
                     narration.textContent = "Player 2 Wins!"
                     break
@@ -154,10 +161,20 @@ const Game = () => {
         }
     }
 
+    const addWinAnimation = () => {
+        for (x in css_winCombination){
+            console.log(css_winCombination[x])
+            console.log(x)
+            const css_winAnimation = document.getElementById(`${css_winCombination[x]}`)
+            css_winAnimation.classList.add('winAnimation')
+        }
+    }
+
     // Returning for a factory function. 
     return {
         set_gameBoard, 
-        gamePlay
+        gamePlay,
+        addWinAnimation
     }
 
     
@@ -165,5 +182,4 @@ const Game = () => {
 
 const checkGame = Game();
 checkGame.set_gameBoard();
-checkGame.gamePlay();
 
