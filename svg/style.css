@@ -1,0 +1,50 @@
+svg {
+    width: 100vh;
+    height: auto;
+    
+}
+
+#path316 {
+    stroke: #000;
+    stroke-width: 10px;
+    fill: transparent;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 10s linear forwards;
+}
+
+#path390 {
+    stroke: #000;
+    stroke-width: 10px;
+    fill: transparent;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 10s linear forwards;
+}
+
+#path378 {
+    stroke: #000;
+    stroke-width: 10px;
+    fill:transparent;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 10s linear forwards;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+

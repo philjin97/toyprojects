@@ -119,6 +119,11 @@ const Game = () => {
                 win = 0}
             }   
 
+            if (!gameBoard.includes('none')){
+                const narration = document.querySelector('.narration')
+                narration.textContent = "Draw!"
+            }
+
             } else if (a == 1){
             const narration = document.querySelector('.narration')
             narration.textContent = "It is Player 1's turn"
@@ -156,6 +161,11 @@ const Game = () => {
                     break
                 } else {
                 win = 0}
+            }
+            
+            if (!gameBoard.includes('none')){
+                const narration = document.querySelector('.narration')
+                narration.textContent = "Draw!"
             }
             }
         }
